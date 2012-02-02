@@ -1,0 +1,5 @@
+This is some code that resizes a jQuery colorbox iFrame from within the frame itself. This came in useful when presenting a form to a user in a colorbox iframe and then needing to resize up when validation failed, or resize down when redirected to a thankyou page.
+
+I posted on my blog about it in Feb 11 (http://dot-net-web-developer-bristol.blogspot.com/2011/02/jquery-colorbox-resizing-iframe-to.html) and it's proven to be a very popular topic, with some people requesting a demo. I've stripped out most unnecessary stuff and just left in the core bits. I have however left css in as it makes it look nice.
+
+Just open up Default.html in a browser.

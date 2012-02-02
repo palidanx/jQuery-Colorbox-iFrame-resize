@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	$.updnWatermark.attachAll();
+	$(".slideshow").bind("click",function(){
+		var $title = $(this).attr('title');
+		$("#slideholder").empty().load($(this).attr('href') + " div.slides a", function(){
+			$("#slideholder a").empty().attr("rel", "slides").colorbox({open:true});
+		});
+		return false;
+	});
+});

@@ -1,0 +1,266 @@
+$(document).ready(function () {
+    $("input.submit").hover(on, off);
+    //$(".formlink").attr('href',$formAddress);
+    //$("input, textarea").focus(function(){this.select()});
+    $(".overlay").bind("click", function () {
+        $("#callbackTag").attr("checked", "checked");
+        checkcheckboxes("tagForm");
+        return false;
+    });
+    var attributes = {};
+
+    popup();
+});
+
+var $fullname, $emailaddress, $selectBoxOption = "";
+
+var bottomForm = [];
+
+function checkcheckboxes(a) {
+    bottomForm = [];
+    var thisform = ("#" + a).toString();
+    $selectBoxOption = "";
+    $(thisform + " input[type=checkbox]:checked").each(
+
+	    function () {
+	        bottomForm.push(this.name);
+	        $selectBoxOption = $selectBoxOption + "::" + this.name;
+	    }
+
+	);
+
+    //	    $.each(bottomForm, function () {
+    //	        alert(this.name);
+
+    //	    });
+    //   
+    if ($(thisform + " .name").val() != '' && $(thisform + " .name").val() != 'Full name') {
+        $fullname = $(thisform + " .name").val();
+    }
+    if ($(thisform + " .email").val() != '' && $(thisform + " .email").val() != 'Email address') {
+        $emailaddress = $(thisform + " .email").val();
+
+    }
+    //alert($formAddress + "?fullname=" + $fullname + "&emailaddress=" + $emailaddress + "&selectBoxOption=" + $selectBoxOption);
+    $.colorbox({
+        iframe: true,
+        scrolling: false,
+        href: $formAddress + "?fullname=" + $fullname + "&emailaddress=" + $emailaddress + "&selectBoxOption=" + $selectBoxOption,
+        innerWidth: 480,
+	innerHeight:400,       
+	onOpen:function(){$("#flash object, #flash embed").hide()},
+        onComplete: function () {
+            startherup();
+        },
+        onCleanup:function(){$("#flash object, #flash embed").show()}
+    });
+    return false;
+}
+
+
+function resizer() {
+    $.colorbox.resize();
+}
+
+function popup() {
+    $('a[rel="popup"]').popupWindow({ height: 450, width: 524, centerScreen: 1, scrollbars: 1 });
+}
+
+
+//OVERLAY FORM *******************************************************************************************
+
+function startherup() {
+    //var frameWidth = 540;
+    // var frameHeight = 350;
+    $("input.checkbox").click(function () { helpCheckBox(0) });
+    //inputNameAndEmail();
+    $('#locationDiv,#visitDateDiv').hide();
+    var options = {
+        success: success,
+        url: '/getintouch_pop.aspx'
+    };
+    //$('#submitEnquiry').click(function(){parent.$.fn.colorbox.myResize(frameWidth, frameHeight);});
+    $("#getintouch_form").validate({
+        onkeyup: false,
+        onblur: false,
+        onsubmit: true,
+        onfocusout: false,
+        rules: {
+            firstname: "required",
+            lastname: "required",
+            titleText: "required",
+            txtPhoneNumber: {
+                required: true,
+                phoneUK: true
+            },
+            //location: { required: "#priorityCallback:checked" },
+            location: { required: true },
+            address1: { required: "#brochureRequest:checked" },
+            postcode: { required: "#brochureRequest:checked" },
+            txtDateVisit: { required: "#vipvisit:checked" },
+            txtEmail: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            titleText: "Please select a title",
+            firstname: "Please enter your first name",
+            lastname: "Please enter your last name",
+            txtPhoneNumber: "Please enter a valid phone number",
+            txtEmail: "Please enter a valid email address",
+            location: "Please select a location",
+            postcode: "please enter your postcode",
+            txtDateVisit: "Please select a date for your visit",
+            address1: "Please enter the first line of your address"
+        },
+        invalidHandler: function (form, validator) {
+            //setTimeout(resizer, 20);
+            helpCheckBox(0);
+
+        },
+        errorPlacement: function (error, element) {
+            if (element.is(":checkbox")) {
+                error.appendTo("#checkboxwrapper");
+            } else {
+                error.appendTo(element.parent());
+            }
+        },
+        submitHandler: function (form) {
+            //alert('submitting');
+            $(form).ajaxSubmit(options);
+            return false;
+        }
+
+
+    });
+
+    $.validator.addMethod('checkbox', function (val, el) {
+        var $module = $('#checkboxwrapper');
+        checkedLength = $module.find('.checkbox:checked').length;
+        return checkedLength;
+    });
+
+    $.validator.addMethod('phoneUK', function (phone_number, element) {
+        return this.optional(element) || phone_number.length > 9 &&
+	phone_number.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+    }, 'Please specify a valid phone number');
+
+    $.validator.addClassRules('checkbox', {
+        'checkbox': true
+    });
+
+    $.validator.messages.checkbox = 'Please select at least one checkbox';
+
+    //selectInterest();
+    $("input.submit").hover(on, off);
+    //parent.$.fn.colorbox.myResize(frameWidth, frameHeight);
+    helpCheckBox(20);
+}
+
+function selectInterest() {
+
+
+    if ($selectBoxOption.indexOf("vipvisit") != -1) {
+        $("#vipvisit").attr("checked", true);
+    } else {
+        $("#vipvisit").attr("checked", false);
+    }
+
+    if ($selectBoxOption.indexOf("priorityCallback") != -1) {
+        $("#priorityCallback").attr("checked", true);
+    } else {
+        $("#priorityCallback").attr("checked", false);
+    }
+
+    if ($selectBoxOption.indexOf("brochureRequest") != -1) {
+        $("#brochureRequest").attr("checked", true);
+    }
+    else {
+        $("#brochureRequest").attr("checked", false);
+    }
+
+    inputNameAndEmail();
+}
+
+function inputNameAndEmail() {
+
+    if ($fullname && $fullname != 'undefined') {
+        $bothnames = $fullname.split(" ");
+        $("#firstname").val($bothnames[0]);
+        $("#lastname").val($bothnames[1]);
+    }
+    if ($emailaddress && $emailaddress != 'undefined') {
+        $("#txtEmail").val($emailaddress);
+    }
+    //if($selectBoxOption!=null)
+    //$("#checkboxwrapper input.checkbox").eq($selectBoxOption).attr("checked", "checked");
+    helpCheckBox(0);
+}
+
+
+function helpCheckBox(additionalHeight) {
+
+    var frameWidth = 540;
+    var frameHeight = jQuery('#contentHolder').height() + 40;
+
+    //var frameHeight = 355;
+
+    if ($("#vipvisit").is(":checked")) {
+        $('#visitDateDiv').show().fadeTo("fast", 1);
+        frameHeight = frameHeight;
+    }
+    else {
+        $('#visitDateDiv').fadeTo("fast", 0).hide();
+    }
+
+    if ($("#priorityCallback").is(":checked") || $("#vipvisit").is(":checked") || $("#brochureRequest").is(":checked")) {
+        $('#locationDiv').show().fadeTo("fast", 1);
+        frameHeight = frameHeight;
+    }
+    else {
+        $('#locationDiv').fadeTo("fast", 0).hide();
+    }
+
+    if ($("#priorityCallback").is(":checked")) {
+        $('#timeOfCallDiv').show().fadeTo("fast", 1);
+        frameHeight = frameHeight;
+    }
+    else {
+        $('#timeOfCallDiv').fadeTo("fast", 0).hide();
+    }
+
+    if ($("#brochureRequest").is(":checked")) {
+        $('#brochureRequestDiv').show().fadeTo("fast", 1);
+        frameHeight = frameHeight;
+    }
+    else {
+        $('#brochureRequestDiv').fadeTo("fast", 0).hide();
+    }
+
+
+    parent.$.fn.colorbox.myResize(frameWidth, frameHeight + additionalHeight)
+}
+
+
+
+function success() {
+    parent.$.fn.colorbox.myResize(540, 300);
+    document.location.href = 'thankYou.aspx';
+    //$("div.overlayForm").fadeTo("fast", 0).empty();
+    // $("#cboxLoadedContent").load($thanks, function () {
+    //adwordsConversionCode ();
+    //adcenterConversionCode();
+    //yahooConversionCode();
+    //resizer();
+    //$("#TB_closeWindowButtonBig").fadeTo(0, 0).fadeTo(1500, 1, function () {
+    //    $(this).removeClass("hidden");
+    //});
+    //});
+
+}
+
+
+
+function on() { $(this).addClass('on'); }
+function off() { $(this).removeClass('on'); }

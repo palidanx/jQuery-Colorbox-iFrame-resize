@@ -1,0 +1,4 @@
+div.overlayForm div.checkWrapper label {padding-top:5px}
+div.form-row label {padding:5px 0 0 0;}
+.updnWatermark label {height:1.25em;line-height:normal;padding-top:10px}
+div.centre-panel {height:350px;}

@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+   
+   <script type="text/javascript" src="./js/jquery.js"></script>
+   
+
+
+
+   <style type="text/css">
+@import url("./css/reset.css");
+@import url("./css/popup.css");
+
+body {
+	color:#666666;
+	height:100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:75%;
+	background:url(/Uploads/background_9.jpg) #6699bf repeat-x;
+	text-align:center;
+	}
+	
+body.overlay-page {background-image:none;background-color:#fff}
+	
+div.ribbon {
+	height:100%;
+	width:100%;
+	background:url(/Uploads/ribbon_9.png) no-repeat top center;
+	}
+
+	div.ribbon:after {
+		clear:both;
+		height:0;
+		display:block;
+		visibility:hidden;
+		content:".";
+	}
+
+div.header {float:left;position:relative;width:100%}
+
+h1 {float:left;width:auto;}	
+	
+.alt {display:none}
+
+h1 a {
+	float:left;
+	margin-left:10px;
+	}
+	
+h2 {color:#da2d35;float:left;font-size:1.6em;font-weight:bold;margin:5px 0 20px 8px}
+
+h3 a {color:#3d6fb7;font-size:1.2em;font-weight:bold;float:left;margin-bottom:10px;text-decoration:none;width:100%}
+h3 a:hover {color:#73a6ef}
+	
+img {display:block;}
+	
+/*div.subheader {float:left;margin-left:50px}*/
+div.subheader {float:left;}
+
+div.header-tactical-area {position:absolute;right:145px;top:0}
+
+#flash {margin-top: -10px;min-height:564px;padding-left:10px;}	
+
+div.wrapper,
+div.top-panel,
+div.centre-panel,
+div.centre-wrapper,
+div.content,
+div.centre-panel-top,
+div.bottom-panel {float:left;width:918px;position:relative}
+
+div.top-panel {z-index:1000;}
+
+div.wrapper {float:none;margin:0 auto;text-align:left}
+
+	div.bottom-panel {background:transparent url(/Uploads/footer_10.png) left top no-repeat;color:#ffffff;height:350px;margin:0 0 30px 0;}
+
+	
+	div.centre-panel {margin:-100px 0 10px 0;min-height:350px;}
+	div.centre-wrapper {background:url(img/bottom-main.png) left bottom no-repeat;padding-bottom:100px;margin-top:100px}
+	
+	div.content {
+		background:url(/Uploads/top-main_4_4.png) no-repeat;
+		margin:auto 0;
+		width:918px;
+		}
+			
+		div#content:after {
+			display:block;
+			visibility:hidden;
+			clear:both;
+			content:"";
+			height:0;
+		} /* NEEDED FOR POPUP OVERLAY TRANSPARENCY */
+		
+.left-column {margin:50px 0 0 60px;width:478px}
+.right-column {margin:110px 0 0 10px;width:370px}
+
+.left-column, .right-column {float:left;margin-bottom:-80px}
+
+	
+div.top-form {
+	background:transparent url(/Uploads/top-form_9.png) no-repeat;
+	color:#666;
+	float:left;
+	height:600px;
+	padding: 40px 0 0 55px;
+	position:absolute;
+	right:20px;
+	top:80px;
+	width:275px;
+	z-index:2000;
+	}
+
+div.bottom-form {position:relative;}
+div.form {color:#ffffff;font-size:0.9em}
+
+	div.contact-details-box input {float:left;margin-bottom:5px}
+	div.contact-details-box input.name {margin-top:10px}
+	div.form label {margin:-2px 0 4px 3px}
+	
+div.form-row {float:left;clear:both;margin-bottom:5px;width:180px;}
+div.input-name,
+div.input-phone,
+div.email-address {float:left;clear:both;margin-top:5px}
+
+div.form-row input,
+div.form-row label {float:left}
+div.form-row label {padding-left:4px;width:150px;}
+
+
+span.contact-details,
+span.contact-online {
+	clear:both;
+	float:left;
+	font-size:1.1em;
+	margin-top:12px;
+	width:100%;
+	}
+	
+	
+span.contact-online {margin-bottom:10px}
+
+.input-name input,
+.input-phone input,
+.email-address input {border:1px solid #7f9db9;height:20px;margin-top:3px;width:170px;color:#666;padding-left:2px}
+
+.contact-number-block {position:absolute;left:70px;top:50px}
+.contact-online-block {position:absolute;left:380px;top:48px}
+.contact-details-block {position:absolute;left:625px;top:48px}
+	label.error {color:#ff6600;clear:both;float:left;width:100%}
+	
+.phone-no {display:block;font-size:1.8em;font-weight:bold;margin-bottom:10px}
+
+.enquire-now {
+	background:url(/Uploads/enquire-now_9.png) no-repeat;
+	height:29px;
+	margin: 0 0 23px -3px;
+	text-indent:-9999px;
+	width:250px;
+	}	
+	
+.contact-number-block .enquire-now {margin-bottom:0px}
+	
+ul.main-list {float:left;margin-bottom:20px;width:100%}
+	ul.main-list li {
+		background:url(/css/img/list-back.png) no-repeat bottom;
+		float:left;
+		padding: 5px 0 20px 0;
+		position:relative;
+		}
+		ul.main-list li.last-item {background:none}	
+		
+	ul.main-list img {float:left}
+
+	ul.main-list p.find-out-more a {
+		background:url(/Uploads/bullet_9.png) 0 2px no-repeat;
+		color:#da2d35;
+		float:left;
+		font-weight:bold;
+		padding-left:18px;
+		margin:13px 0 0 3px;
+		text-decoration:none;
+		width:100%;
+		}
+		ul.main-list p.find-out-more a:hover {color:#f8686f}
+		
+img.sash {position:absolute;top:-6px;left:-16px}
+	
+	
+div.main-list-content {float:left;padding:5px 10px 0 5px;width:280px}
+
+div.location-map {position:absolute;bottom:70px;right:20px;}
+
+ul.main-list a.frame-pic {
+	background:url(/css/img/frame-pic.png) no-repeat;
+	padding:9px 15px 15px 8px;
+	float:left;
+	margin-left:-4px;
+	}
+
+.bottom-tag {position:absolute;top:140px;left:20px}
+
+ul.bottom-links {float:right;margin:-125px 40px 0 0;position:relative}
+	ul.bottom-links li {display:inline;float:left;width:auto}
+		ul.bottom-links a {color:#eff3f7;padding:0 8px 0 10px;display:block;float:left;text-decoration:none;width:auto}
+		ul.bottom-links a:hover {text-decoration:underline}
+		ul.bottom-links a.last {background:none}
+
+
+/*************/
+/* WATERMARK */
+/*************/
+
+.updnWatermark {
+	position:relative;
+	width:0;
+	vertical-align:middle;
+	}
+
+.updnWatermark label {
+	position:absolute;
+	left:0;
+	top:-1px;
+	font-size:1.0em;
+	white-space:nowrap;
+	color:#666;
+	padding:0 0 0 3px;
+	height:1.25em;
+	line-height:normal;
+	vertical-align:middle;
+	}
+
+.chrome label {padding-top:7px;}
+	
+	
+/****************/
+/* GENERIC FORM */
+/****************/
+input.submit {background-position:left top;cursor:pointer;text-indent:-9999px;border:0;}
+input.submit.on {background-position:left bottom;}
+
+.get-in-touch {
+	background:url(/Uploads/get-in-touch_8.png) no-repeat;
+	clear:both;
+	float:left;
+	height:37px;
+	width:200px;
+	margin:10px 0 0 -5px;
+	}
+	
+/**************************/
+	
+
+
+/* OVERLAY FORM */
+div.overlayForm {width:450px;float:left;overflow:hidden;padding:30px 0 0 25px;}
+div.overlayForm div.overlayRow,
+div.overlayForm div.overlayRow div.overlayRow {float:left;width:430px;padding-bottom:5px}
+	p.footnote {font-size:0.9em;width:96%}
+div.overlayForm div.overlayRow div {float:left;width:215px;padding-bottom:5px;}
+div.overlayForm div.overlayRow div.visitDate {float:left;padding-bottom:5px;}
+
+div.overlayForm h1 {color:#3d6fb7;font-size:1.6em;}
+div.overlayForm h2 {clear:both;color:#3d6fb7;font-size:1.1em;margin:5px 0 10px 0}
+div.overlayForm h3 {color:#3d6fb7;margin-bottom:5px;}
+
+div.overlayForm div.overlayRow input {clear:both;margin-top:2px;width:183px;}
+div.overlayForm div.overlayRow input.radio {width:auto;}
+
+div.checkWrapper {padding:3px 0 24px 0;float:left;position:relative;width:100%;}
+div.overlayForm div.checkWrapper label {float:left;padding:0 15px 0 5px;white-space:nowrap;}
+
+div.overlayForm div.checkWrapper input {float:left;margin-top:2px}
+
+div.overlayForm div.overlayRow input.checkedbox,
+div.overlayForm div.overlayRow div.radioWrapper input {float:left;padding-right:2px;width:auto;clear:none}
+div.overlayForm div.overlayRow div.radioWrapper label {float:left;padding:0 20px 0 4px;}
+div.overlayForm div.overlayRow div.radioWrapper {padding:2px 0 12px;width:100%}
+	div.overlayForm div.overlayRow label.checkConditions {
+		display:block;
+		font-size:0.95em;
+		line-height:1.2;
+		padding-left:22px;
+		width:370px;
+		}
+	div.checkWrapper label.error {position:absolute;bottom:4px;left:-4px;}
+
+
+
+span.legend {display:block;padding:5px 0 2px;}
+
+p.hr,
+hr		{background:url(/css/img/list-back.png) no-repeat bottom;border:0;height:16px;clear:both;width:100%;margin:0;padding:0;display:block;}
+
+p.hr.bottomhr {clear:both;float:left;margin-top:10px}
+
+div.overlayForm label.postcode {float:left;padding-top:40px;}
+	
+div.overlayForm form.contact label.address {width:90px;float:left}
+div.overlayForm div.overlayRow  div.addressWrapper {float:left;padding-bottom:0;}
+div.overlayForm div.addressWrapper a:link, div.overlayForm div.addressWrapper a:visited {color:#0460af;text-decoration:none}
+
+h2.thankyou {height:36px;width:100%;float:left;clear:both;background:url(/css/img/thankyou.png) no-repeat left top;text-indent:-9999px}
+
+label.callbacktime {float:left;padding:0 0 8px;width:100%;}
+
+#addressDiv {width:215px}
+#postcodeDiv {width:200px}
+
+#locationDiv,
+#visitDateDiv {float:left;padding:6px 0}
+
+
+div.visitDate {position:relative}
+div.visitDate img {position:absolute;top:18px;left:190px;}
+
+div.overlayForm select 		{float:left;width:192px;margin-top:1px;color:#333;font-size:12px;font-family:arial, sans-serif;}
+
+div.overlayForm select#titleSelect{width:auto;}
+
+
+div.overlayForm div.overlayRow div.timeofCall {padding-bottom:0px;}
+
+div.overlayForm form.contact	{margin:0;padding:0;text-align:left}
+
+
+div.overlayForm textarea {font-family:Arial, Helvetica, sans-serif;height:100px;width:398px}
+
+p.disclaimer {display:block;clear:both;float:left;font-size:11px;color:#666;margin-top:10px}
+
+input.submit-button {
+	background:url(/Uploads/submit_9.png) no-repeat;
+	float:left;
+	height:42px;
+	margin-left:160px;
+	width:107px;
+	text-align:left;
+	text-indent:-9999px;
+	}
+
+
+div.errorText {color:#ff0000;clear:both;float:left;width:100%;}
+
+label.clearall {clear:both;width:100%;padding-bottom:5px;float:left}
+
+
+
+/*************/
+/* T&Cs PAGE */
+/*************/
+body.tsandcs {background:#fff;margin:20px;text-align:left}
+body.tsandcs p {margin:0; padding: 7px 0; line-height:1.4em}	
+body.tsandcs ol li {padding: 5px 0}
+body.tsandcs h3 {color:#3D6FB7;font-size:1.6em;padding-bottom:10px}
+body.tsandcs h6 {font-weight:bold;margin-top:10px}
+body.tsandcs a:link, body.tsandcs a:visited, body.tsandcs a:active  {color:#3972c6; text-decoration:none;}
+body.tsandcs a:hover {color:#3972c6; text-decoration:underline;}
+
+#cboxWrapper,
+	#cboxTopLeft,
+	#cboxTopRight,
+	#cboxBottomLeft,
+	#cboxBottomRight,
+	#cboxMiddleLeft, 
+	#cboxMiddleRight, 
+	#cboxTopCenter,
+	#cboxBottomCenter {background-color:#3d6fb7;}</style><style type="text/css">
+
+#colorbox,
+#cboxOverlay,
+#cboxWrapper {color:#514b46;position:absolute;top:0;left:0;z-index:9999;overflow:hidden;}
+#cboxOverlay {position:fixed;width:100%;height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft {clear:left;}
+#cboxContent {position:relative;overflow:hidden;}
+#cboxLoadedContent {/*	overflow:auto;	*/ ;overflow:hidden!important;}
+#cboxLoadedContent iframe {display:block;width:100%;height:100%;border:0;}
+#cboxTitle {margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic {position:absolute;top:0;left:0;width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow {cursor:pointer;}
+
+
+#cboxOverlay {background:url(/css/img/overlay/overlay.png) 0 0 repeat;}
+
+	#cboxTopLeft,
+	#cboxTopRight,
+	#cboxBottomLeft,
+	#cboxBottomRight {width:12px;height:12px;}
+	
+
+	#cboxTopLeft {background:url(/css/img/overlay/corners.png) 0 0;}
+	#cboxTopRight {background:url(/css/img/overlay/corners.png) -12px 0;}
+	#cboxBottomLeft {background:url(/css/img/overlay/corners.png) 0 -12px;}
+	#cboxBottomRight {background:url(/css/img/overlay/corners.png) -12px -12px;}
+	#cboxMiddleLeft {width:12px;background:url(/css/img/overlay/border.gif)  repeat-y;}
+	#cboxMiddleRight {width:12px;background:url(/css/img/overlay/right-border.gif) repeat-y;}
+	#cboxTopCenter {height:12px;background:url(/css/img/overlay/border.gif) repeat-x;}
+	#cboxBottomCenter {height:12px;background:url(/css/img/overlay/bottom-border.gif) repeat-x;}
+	#cboxContent {background:#fff;}
+		#cboxLoadedContent {margin-bottom:28px}
+		#cboxLoadingOverlay {background:url(/css/img/overlay/loading_background.png) center center no-repeat;}
+		#cboxLoadingGraphic {background:url(/css/img/overlay/loading.gif) center center no-repeat;}
+		#cboxClose {color:#7f7f7f;position:absolute;top:10px;right:10px;background:url(/css/img/overlay/close.png) no-repeat right 4px ;width:65px;}
+		
+	#cboxWrapper,
+	#cboxTopLeft,
+	#cboxTopRight,
+	#cboxBottomLeft,
+	#cboxBottomRight,
+	#cboxMiddleLeft, 
+	#cboxMiddleRight, 
+	#cboxTopCenter,
+	#cboxBottomCenter {background-color:#3d6fb7;}
+
+#contentHolder {float:left;}
+
+/* END COLORBOX.CSS */</style><title>
+
+</title></head>
+ <body class="overlay-page">
+ <div id="contentHolder">
+	<div class="overlayForm">
+	<form method="post" action="popup.html" id="popup" class="contact">
+
+
+
+
+
+<script type="text/javascript" src="./js/jquery.init.js"></script>
+
+		<h1 class="overlay-header">Resize me</h1>
+
+	
+			<br/><br/><br/>
+			<input name="submit" type="submit" id="submit" value="300x400" onclick="return resizeTo(300,400)" />
+			<br/>
+			<input name="submit" type="submit" id="submit" value="400x400" onclick="return resizeTo(400,400)" />
+			<br/>
+			<input name="submit" type="submit" id="submit" value="500x600" onclick="return resizeTo(500,600)" />
+			<br/>
+			<input name="submit" type="submit" id="submit" value="600x700" onclick="return resizeTo(600,700)" />
+			
+			
+		</form>
+   
+	</div>
+    </div>
+</body>
+    </html>

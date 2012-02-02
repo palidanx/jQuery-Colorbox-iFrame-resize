@@ -1,0 +1,236 @@
+$(document).ready(function(){
+	$("input.submit").hover(on,off);
+	$(".formlink").attr('href',$formAddress);
+	$("input, textarea").focus(function(){this.select()});
+	$(".overlay").bind("click",function(){
+		$("#callbackTag").attr("checked", "checked");
+		checkcheckboxes("tagForm");
+		return false;
+	});
+	var attributes = {};
+	
+	$('#flash').flash({				
+		  src: 'flash/pop-header.swf',		
+		  width: 984,	
+		  height: 564,				
+		  wmode: 'transparent',
+		  allowscriptaccess: 'always',
+		  flashvars: flashvars
+		},
+		{version: 8}
+	);	
+	popup();
+});
+
+var $fullname, $emailaddress, $selectBoxOption;
+
+var bottomForm = [];
+
+function checkcheckboxes(a){
+	bottomForm = [];
+	var thisform = ("#"+a).toString();
+	$(thisform+" input[type=checkbox]:checked").each( 
+	    function() { 
+	       bottomForm.push(this.name);     	
+	    } 
+	);
+	if($(thisform +" .name").val()!='' && $(thisform +" .name").val()!='Full name'){
+		
+		$fullname = $(thisform+" .name").val();
+	}
+	if($(thisform +" .email").val()!='' && $(thisform +" .email").val()!='Email address'){
+		$emailaddress = $(thisform +" .email").val();
+		
+		}
+
+	$.colorbox({
+		href:$formAddress,
+		innerWidth:480,
+		innerHeight:400,
+		onOpen:function(){$("#flash object, #flash embed").hide()},
+		onComplete:function(){
+    			startherup();
+		},
+		onCleanup:function(){$("#flash object, #flash embed").show()}
+	});	
+	return false;
+}
+
+
+function selectInterest(){
+	$.each(bottomForm, function() {$("#"+this).attr("checked", "checked");});
+	inputNameAndEmail();
+}
+
+function inputNameAndEmail(){
+	if($fullname){
+		$bothnames = $fullname.split(" ");
+		$("[name=firstname]").val($bothnames[0]);
+		$("[name=lastname]").val($bothnames[1]);
+	}
+	$("[name=txtEmail]").val($emailaddress);
+	if($selectBoxOption!=null)
+		$("#checkboxwrapper input.checkbox").eq($selectBoxOption).attr("checked", "checked");
+	helpCheckBox();
+}
+
+function startherup(){
+	$("input.checkbox").click(function(){helpCheckBox()});
+	inputNameAndEmail();
+	$('#locationDiv,#visitDateDiv').hide();
+	var options = { 
+	    url:        '/campaign/pop/getintouch_pop.aspx'
+	}; 
+//	$('#submitEnquiry').click(function(){setTimeout(resizer,20)});
+	$("#getintouch_form").validate({
+	    onkeyup: false,
+	    onblur: false,
+	    onsubmit: true,
+	    onfocusout: false,
+	    rules: {
+	        firstname: "required",
+	        lastname: "required",
+	        titleText: "required",
+	        txtPhoneNumber: {
+	            required: true,
+	            phoneUK: true
+	        },
+	        location: { required: "#priorityCallback:checked" },
+	        address1: { required: "#brochureRequest:checked" },
+	        postcode: { required: "#brochureRequest:checked" },
+	        txtDateVisit: { required: "#vipvisit:checked" },
+	        txtEmail: {
+	            required: true,
+	            email: true
+	        }
+	    },
+	    messages: {
+	        titleText: "Please select a title",
+	        firstname: "Please enter your first name",
+	        lastname: "Please enter your last name",
+	        txtPhoneNumber: "Please enter a valid phone number",
+	        txtEmail: "Please enter a valid email address",
+	        location: "Please select a location",
+	        postcode: "please enter your postcode",
+	        txtDateVisit: "Please select a date for your visit",
+	        address1: "Please enter the first line of your address"
+	    },
+	    invalidHandler: function(form, validator) {
+		setTimeout(resizer, 20);
+	    },
+	    errorPlacement: function(error, element) {
+	        if (element.is(":checkbox")) {
+	            error.appendTo("#checkboxwrapper");
+	        } else {
+	            error.appendTo(element.parent());
+	        }
+	    },
+	    submitHandler: function(form) {
+		$(form).ajaxSubmit(options);
+	        success();
+	        return false;
+	    }
+	});
+
+	$.validator.addMethod('checkbox', function(val, el) {
+		var $module = $('#checkboxwrapper');
+		checkedLength = $module.find('.checkbox:checked').length;
+		return checkedLength;
+	});
+
+	$.validator.addMethod('phoneUK', function(phone_number, element) {
+	return this.optional(element) || phone_number.length > 9 &&
+	phone_number.match(/^(\(?(0|\+44)[1-9]{1}\d{1,4}?\)?\s?\d{3,4}\s?\d{3,4})$/);
+	}, 'Please specify a valid phone number');
+
+	$.validator.addClassRules('checkbox', {
+		'checkbox' : true
+	});
+
+	$.validator.messages.checkbox = 'Please select at least one checkbox';
+
+	selectInterest();
+	$("input.submit").hover(on,off);
+	resizer();
+
+}
+
+function success(){
+	$("div.overlayForm").fadeTo("fast",0).empty();	
+	$("#cboxLoadedContent").load($thanks, function(){
+		adwordsConversionCode ();
+		adcenterConversionCode();
+		yahooConversionCode();
+		resizer();
+		$("#TB_closeWindowButtonBig").fadeTo(0,0).fadeTo(1500,1,function() {
+      			$(this).removeClass("hidden");
+    		});
+	});
+		
+}
+function resizer(){
+	$.colorbox.resize();
+}
+
+function popup(){
+	$('a[rel="popup"]').popupWindow({height:450,width:524,centerScreen:1, scrollbars:1});
+}
+
+
+function helpCheckBox(){
+      if ($("#brochureRequest").is(":checked"))
+	   $('#brochureRequestDiv').show().fadeTo("fast",1);
+	else
+		$('#brochureRequestDiv').fadeTo("fast",0).hide();
+	if($("#priorityCallback").is(":checked") || $("#vipvisit").is(":checked") || $("#brochureRequest").is(":checked"))
+		$('#locationDiv').show().fadeTo("fast",1);
+	else
+		$('#locationDiv').fadeTo("fast",0).hide();
+	if($("#priorityCallback").is(":checked"))
+		$('#timeOfCallDiv').show().fadeTo("fast",1);
+	else
+		$('#timeOfCallDiv').fadeTo("fast",0).hide();
+	if($("#vipvisit").is(":checked"))
+		$('#visitDateDiv').show().fadeTo("fast",1);
+	else
+		$('#visitDateDiv').fadeTo("fast",0).hide();
+	setTimeout(resizer,20)
+}
+
+function googleTracking(trackType) {
+
+	try {
+	var pageTracker = _gat._getTracker("UA-2395291-3");
+	pageTracker._trackPageview(trackType);
+	} catch(err) {}
+}
+
+function yahooTracking() {
+//alert("yahooTracking reached");
+	window.ysm_customData = new Object();
+	window.ysm_customData.conversion = "transId=,currency=,amount=";
+	var ysm_accountid  = "15H042IP5VO3E9Q7PP1H1F7R0LO";
+	SRC = "srv3.wa.marketingsolutions.yahoo.com" + "/script/ScriptServlet" + "?aid=" + ysm_accountid;
+	$.getScript(SRC, function(){
+ // alert("yahooTracking Script loaded and executed.");
+});
+}
+
+
+
+
+function on(){$(this).addClass('on');}
+function off(){$(this).removeClass('on');}
+
+function adwordsConversionCode() {
+	$("#googleconversion").html('<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1038364789/?label=48pzCLHKzQEQ9eCQ7wM&amp;guid=ON&amp;script=0"/>');
+}
+
+function adcenterConversionCode() {
+	$("#adcenterconversion").html('<iframe src="//flex.atdmt.com/mstag/tag/fe0de804-d74b-4bf4-8aab-68d77e6c152c/conversion.html?cp=5050&dedup=1" frameborder="0" scrolling="no" width="1" height="1" style="visibility:hidden; display:none"> </iframe>');
+}
+
+function yahooConversionCode() {
+	$("#yahooconversion").html('<iframe src="/campaign/pop/yahoo_thanks.html" frameborder="0" scrolling="no" width="1" height="1" style="visibility:hidden; display:none"> </iframe>');
+}
+
