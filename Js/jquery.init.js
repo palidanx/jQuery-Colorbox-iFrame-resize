@@ -6,8 +6,8 @@ function launchColorbox() {
         iframe: true,
         scrolling: false,
         href: $formAddress,
-        innerWidth: 480,
-	innerHeight:400
+        innerWidth: 180,
+	innerHeight:100
     });
     return false;
 }

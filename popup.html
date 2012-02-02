@@ -439,11 +439,22 @@ body.tsandcs a:hover {color:#3972c6; text-decoration:underline;}
 			<input name="submit" type="submit" id="submit" value="500x600" onclick="return resizeTo(500,600)" />
 			<br/>
 			<input name="submit" type="submit" id="submit" value="600x700" onclick="return resizeTo(600,700)" />
+		<br/>
+		<h1 class="overlay-header"><a href="lorem.html">Go to longer page >></a></h1>
 			
 			
 		</form>
    
 	</div>
     </div>
+<script type="text/javascript">
+jQuery(document).ready(function (){
+ jQuery(window).bind("load", function () {
+ var frameWidth = jQuery(document).width();
+ var frameHeight = jQuery(document).height() + 20;
+ parent.$.fn.colorbox.myResize(frameWidth, frameHeight);
+ });
+});
+</script>
 </body>
     </html>
